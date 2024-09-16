@@ -1,0 +1,38 @@
+package com.practiceProblems.java;
+
+import java.util.Arrays;
+
+public class LongestConsecutiveSubsequence_sort {
+
+	public static void main(String[] args) {
+		
+		int[] nums = {9,1,4,7,3,-1,0,5,8,-1,6};
+		int n = nums.length;
+		int ans = 0;
+		System.out.println("length is "+n);
+		Arrays.sort(nums);
+		System.out.println(Arrays.toString(nums));
+		
+		int num = nums[0];
+		int count = 1;
+		
+		for(int i=0;i<n;i++) {
+
+			
+			if(nums[i] == num + 1) {
+				count++;
+				num = nums[i];
+			}
+			else if ((nums[i] != num + 1) && nums[i]!=num) {
+				count = 1;
+				num = nums[i];
+			}
+			
+			ans = Math.max(ans, count);
+		}
+		
+		System.out.println("Ans is "+ans);
+
+	}
+
+}
