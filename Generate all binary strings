@@ -1,0 +1,69 @@
+package com.practiceProblems.java;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Stack;
+
+public class InsertZeros {
+	
+	static List<String> a ;
+	
+	public static  List<String> Insert(int[] arr, int ind,int n) {
+		
+		Stack<Integer> s = new Stack<>();
+		String string = "";
+		
+		for(int i=0;i<n;i++) {
+			
+			if(!s.isEmpty() && arr[i] == 1 && s.peek() == 1)
+				return a;
+			
+			s.push(arr[i]);
+			
+		}
+		
+		for(int i=0;i<n;i++) {
+			
+			string+=arr[i];
+			
+		}
+		
+	
+		a.add(string);
+		
+		if(ind<0)
+			return a;
+
+		
+		
+		for(int i=ind;i>=0;i--) {
+			
+				arr[i] = 1;
+				Insert(arr,i-1,n);
+				
+				arr[i] = 0;
+			
+		}
+		
+		return a;
+		
+	}
+
+	public static void main(String[] args) {
+		
+		int n = 4;
+		a = new ArrayList<>(); // reseting the global variable for each new test case otherwise the ans can get corrupted 
+		int[] arr = new int[n];
+		List<String> ans  = Insert(arr,arr.length-1,arr.length);
+		Collections.sort(ans);
+		System.out.println(ans.toString());
+
+	}
+
+}
+
+
+input: 4
+output: [0000, 0001, 0010, 0100, 0101, 1000, 1001, 1010]
