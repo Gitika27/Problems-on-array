@@ -1,0 +1,66 @@
+package com.practiceProblems.java;
+
+import java.util.ArrayList;
+
+public class UnionOfSortedArrays {
+
+	public static void main(String[] args) {
+		
+		int[] arr1 = {1, 1, 1, 1, 1};
+		int[] arr2 = {2, 2, 2, 2, 2};
+		
+		int n = arr1.length;
+		int m = arr2.length;
+		
+		int temp = 0;
+		
+		ArrayList<Integer> ans = new ArrayList<>();
+		
+		int i = 0;
+		int j = 0;
+		
+		while(i<n && j<m) {
+			if(arr2[j] == temp) {
+				j++;
+				continue;
+			}
+			if(arr1[i] == temp) {
+				i++;
+				continue;
+			}
+			
+			if(arr2[j] < arr1[i]) {
+				ans.add(arr2[j]);
+				temp = arr2[j];
+				j++;
+			}
+			else {
+				ans.add(arr1[i]);
+				temp = arr1[i];
+				i++;
+				
+			}
+		}
+		
+		for(int k = i; k<n; k++) {
+			if(arr1[k] != temp) {
+				ans.add(arr1[k]);
+				temp = arr1[k];
+			}
+				
+		}
+	
+		for(int k = j; k<m; k++) {
+			if(arr2[k] != temp) {
+				ans.add(arr2[k]);
+				temp = arr2[k];
+			}
+			
+		}
+		
+		System.out.println(ans.toString());
+			
+
+	}
+
+}
