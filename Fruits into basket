@@ -1,0 +1,50 @@
+package com.practice.examples.dsa;
+
+import java.util.*;
+
+public class FruitsIntoBasket {
+	
+	
+	public static int solution(int[] arr) {
+		int count = 0;
+		int i = 0;
+		int j = 0;
+		int n = arr.length;
+		HashMap<Integer,Integer> d = new HashMap<>();
+		
+		
+		while(j < n) {
+		
+			d.put(arr[j], d.getOrDefault(arr[j], 0)+1);
+			
+			if(d.size() > 2) {
+				int val = d.get(arr[i]);
+				d.put(arr[i], val-1);
+				if(d.get(arr[i]) == 0) d.remove(arr[i]);
+				i+=1;
+			}
+			
+			if(d.size() <= 2){
+				
+				count = Math.max(count, j-i+1);
+				
+			}
+			
+			
+			j+=1;
+			
+		}
+		
+		
+		return count;
+	}
+	public static void main(String[] args) {
+		
+		int[] arr = {13, 3, 10, 2, 8, 9, 10, 9, 4, 16, 3, 2, 11, 1, 9, 17, 10};		
+		System.out.println(solution(arr));
+
+	}
+
+}
+
+Output: 3
