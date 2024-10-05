@@ -1,0 +1,64 @@
+package com.practice.examples.dsa;
+
+import java.util.HashMap;
+
+public class MaxConsecutiveOnes {
+
+	public static int optimalApproach(int nums[], int k) {
+		int len = 0;
+		int n = nums.length;
+		int i = 0;
+		int j = i;
+		int count = 0;
+		
+		while(i <= j && j < n) {
+			if(nums[j] == 0)
+				count++;
+			
+			while(count > k) {
+				if(nums[i] == 0) count--;
+				i+=1;
+			}
+			len = Math.max(len, j-i+1);
+			
+			
+			j+=1;
+		}
+		
+		
+		return len;
+		
+		
+	}
+	public static int bruteForce(int[] nums, int k) {
+		int n = nums.length;
+		int length = 0;
+		
+		for(int i = 0; i < n; i++) {
+			int count = 0;
+			for(int j = i; j < n; j++) {
+				if(nums[j] == 0) {
+					count++;
+				}
+				if(count > k) break;
+				length = Math.max(length, j-i+1);
+			}
+
+		}
+		
+		
+		return length;
+	}
+	public static void main(String[] args) {
+		
+		int[] nums = {0,0,1,1,0,0,1,1,1,0,1,1,0,0,0,1,1,1,1};
+		int k = 3;
+		System.out.println("Brute force ans: "+bruteForce(nums,k));
+		System.out.println("Optimal approach ans: "+optimalApproach(nums,k));	
+	}
+
+}
+
+Output:
+Brute force ans: 10
+Optimal approach ans: 10
