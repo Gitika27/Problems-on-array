@@ -28,6 +28,7 @@ public class BinarySubarrayWithSum {
 	}
 	
 	public static int optimalSolution(int[] nums, int goal) {
+		// Time: O(N) Space: O(N)
 		int ans = 0;
 		int n = nums.length;
 		int sum = 0;
@@ -48,17 +49,48 @@ public class BinarySubarrayWithSum {
 		
 		return ans;
 	}
+	
+	public static int optimalSolution_1(int[] nums, int goal) {
+		// Time: O(N) Space: O(1)
+		if(goal < 0)
+			return 0;
+		
+		int n = nums.length;
+		int count = 0; // count number of subarrays with sum <= goal
+		int sum = 0;
+		
+		int i = 0;
+		int j = 0;
+		
+		while(j < n) {
+			sum += nums[j];
+			
+			while(sum > goal) {
+				sum -= nums[i];
+				i+=1;
+			}
+			
+			count += (j-i+1);
+			
+			j+=1;
+		}
+		
+		
+		return count;
+	}
 
 	public static void main(String[] args) {
 		int[] nums = {0,0,0,0,0};
 		int goal = 0;
 		System.out.println("brute force: "+bruteForce(nums,goal));
 		System.out.println("optimalSolution force: "+optimalSolution(nums,goal));
+		int ans = optimalSolution_1(nums,goal) - optimalSolution_1(nums,goal-1);
+		System.out.println("optimalSolution force using O(1) space complexity : "+ans);
 
 	}
 
 }
-
-Output: 
+Output:
 brute force: 15
 optimalSolution force: 15
+optimalSolution force using O(1) space complexity : 15
