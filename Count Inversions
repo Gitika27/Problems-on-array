@@ -1,0 +1,85 @@
+package com.practice.examples.dsa;
+
+import java.util.Arrays;
+
+public class CountInversions {
+	
+	static int count ;
+	
+	public static void merge(int[] arr, int l, int mid, int h) {
+	
+		// divide the array into left and right 
+		int n = mid - l + 1; // left half length
+		int m = h-mid ; // right half length
+		
+		
+		int[] left = new int[n];
+		int[] right = new int[m];
+		
+		for(int i = 0; i < n ; i++) {
+			left[i] = arr[i+l];
+		}
+		
+		for(int i = 0; i < m; i++) {
+			right[i] = arr[i+mid+1];
+		}
+		
+		int i = 0;
+		int j = 0;
+		int k = l;
+		
+		while (i < n && j < m) {
+			if(left[i] <= right[j]) {
+				arr[k] = left[i];
+				i+=1;
+			}
+			else {
+				arr[k] = right[j];
+				count += n-i;
+				j+=1;
+			}
+			k+=1;
+		}
+		
+		for(int v = i; v < n; v++) {
+			arr[k] = left[v];
+			k+=1;
+		}
+		
+		for(int v = j; v < m; v++) {
+			arr[k] = right[v];
+			k+=1;
+		}
+		
+		System.out.println(Arrays.toString(arr)+" left is "+l+" and right is "+h);
+	}
+	
+	public static void mergeSort(int l, int h, int[] arr) {
+		
+		
+		if(l<h) {
+			int mid = (l+h)/2;
+			mergeSort(l,mid,arr);
+			mergeSort(mid+1,h,arr);
+			merge(arr,l,mid,h);
+		}
+	}
+
+	public static int countInversions(int[] arr) {
+		
+		count = 0;
+		mergeSort(0,arr.length-1,arr);
+		
+		System.out.println("count is "+count);
+		
+		return 0;
+	}
+	
+	public static void main(String[] args) {
+		
+		int[] arr = {5,3,2,4,1};
+		System.out.println(countInversions(arr));
+
+	}
+
+}
