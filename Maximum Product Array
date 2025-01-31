@@ -1,0 +1,31 @@
+package CodingProblems;
+
+import java.util.Arrays;
+
+public class MaxProductSubarray {
+
+    public static int maxProduct(int[] nums) {
+        int ans = nums[0];
+        int maxProduct = nums[0];
+        int minProduct = nums[0];
+        int n = nums.length;
+
+        for(int i = 1; i < n; i++){
+            int currentMax = maxProduct;
+            int currentMin = minProduct;
+            maxProduct = Math.max(nums[i], Math.max(currentMax*nums[i],currentMin*nums[i]));
+            minProduct = Math.min(nums[i], Math.min(currentMax*nums[i],currentMin*nums[i]));
+            System.out.println(maxProduct+" "+maxProduct);
+            ans = Math.max(ans, maxProduct);
+        }
+
+        return ans;
+    }
+    public static void main(String[] args) {
+        int[] nums = {2,3,-2,4};
+        int ans = maxProduct(nums);
+        System.out.println("Ans: "+ans);
+
+    }
+}
+Ans: 6
