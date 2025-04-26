@@ -1,0 +1,46 @@
+package CodingProblems;
+
+import java.util.HashMap;
+
+public class CountCompleteSubarrays {
+
+    public static void main(String[] args) {
+        //int[] nums = {1641,448,1641,1437,448,1406,1437};
+        int[] nums = {1898,370,822,1659,1360,128,370,360,261,1898};
+        int n = nums.length;
+
+        HashMap<Integer,Integer> d = new HashMap<>();
+
+
+
+        for(int k = 0; k < n ; k++){
+            d.put(nums[k],d.getOrDefault(nums[k],0)+1);
+        }
+
+        int i = 0;
+        int j = n-1;
+
+        int distinct = d.size();
+
+        System.out.println("Distinct elements are: "+distinct);
+        int count = 0;
+
+        d.clear();
+
+        for (int left = 0, right = 0; right < n; ++right){
+            d.put(nums[right], d.getOrDefault(nums[right],0) + 1);
+            while(d.size() == distinct){
+                count += n - right;
+                // move the left pointer
+                int val = d.get(nums[left]) - 1;
+                d.put(nums[left],val);
+                if(val == 0){
+                    d.remove(nums[left]);
+                }
+                left += 1;
+            }
+        }
+
+        System.out.println("Count is "+count);
+    }
+}
